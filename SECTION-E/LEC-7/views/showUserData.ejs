@@ -3,20 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>User Details</title>
+    <link rel="stylesheet" href="/style.css">  <!-- Correct path to the CSS -->
 </head>
 <body>
-    <h1> user details</h1>
-    <% for(let user of Users){ %>
-        <h1><%= user.email %></h1>
-        <h1><%= user.password %></h1>
-        <h1><%= user.contact %></h1>
-        <button type="submit"><a href="/u1/user/update/<%= user.id%>">Edit</a></button>
-        <form action="/u1/user/delete/<%= user.id%>?_method=DELETE" method="POST">
-            <button type="submit">Delete</button>
-        </form>
+    <!-- Navbar -->
+    <nav>
+        <ul>
+            <li><a href="/u1/user/all">All Users</a></li>
+            <li><a href="/u1/user/new">Add New User</a></li>
+        </ul>
+    </nav>
 
-        
+    <h1>User Details</h1>
+
+    <% if (Users.length === 0) { %>
+        <p>No users available.</p>
+    <% } else { %>
+        <div class="user-cards">
+            <% for (let user of Users) { %>
+                <div class="user-card">
+                    <h2><%= user.email %></h2>
+                    <p><strong>Password:</strong> <%= user.password %></p>
+                    <p><strong>Contact:</strong> <%= user.contact %></p>
+                    <a href="/u1/user/update/<%= user.id %>">Edit</a>
+                    <form action="/u1/user/delete/<%= user.id %>?_method=DELETE" method="POST">
+                        <button type="submit">Delete</button>
+                    </form>
+                </div>
+            <% } %>
+        </div>
     <% } %>
 </body>
 </html>
